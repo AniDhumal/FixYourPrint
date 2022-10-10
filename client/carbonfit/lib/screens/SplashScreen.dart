@@ -34,10 +34,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _alreadySigned = false; 
+    _alreadySigned = false;
     userSignedIn();
     Timer(
-        Duration(seconds: 3),
+        Duration(seconds: 2),
         () => {
               setState(() => {_opacity = 1})
             });
@@ -55,7 +55,10 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 210),
-                child: SplashTitle(title: "CarbonFit"),
+                child: AnimatedOpacity(
+                    duration: Duration(milliseconds: 500),
+                    opacity: _opacity,
+                    child: SplashTitle(title: "CarbonFit")),
               ),
               SizedBox(
                 height: 250,

@@ -1,7 +1,7 @@
 import 'package:fixyourprint/models/GraphDataModel.dart';
 import 'package:fixyourprint/services/CarbonDataService.dart';
-import 'package:fixyourprint/widgets/GreenLoader.dart';
 import 'package:fixyourprint/widgets/PieChartSections.dart';
+import 'package:fixyourprint/widgets/ShimmerWidget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -109,7 +109,7 @@ class _PieChartWidgetState extends State<PieChartWidget> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? GreenLoader()
+        ? buildGraphShimmer()
         : Container(
             height: 400,
             width: 400,
@@ -146,4 +146,11 @@ class _PieChartWidgetState extends State<PieChartWidget> {
             ),
           );
   }
+
+  Widget buildGraphShimmer() => ListTile(
+          title: ShimmerWidget.card(
+        shapeBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ));
 }

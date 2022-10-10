@@ -1,5 +1,6 @@
 import 'package:fixyourprint/screens/AboutUs.dart';
 import 'package:fixyourprint/screens/CarbonInfo.dart';
+import 'package:fixyourprint/screens/ChatbotScreen.dart';
 import 'package:fixyourprint/screens/Countdown.dart';
 import 'package:fixyourprint/screens/Dashboard.dart';
 import 'package:fixyourprint/screens/FAQs.dart';
@@ -25,7 +26,7 @@ class _HomeState extends State<Home> {
     Dashboard(),
     Solutions(),
     CarbonInfo(),
-    Center(child: Text('ChatBot'))
+    ChatBotScreen(),
   ];
 
   @override
@@ -117,9 +118,38 @@ class _HomeState extends State<Home> {
               ),
               GestureDetector(
                 onTap: () {
-                  AuthService().logoutUser();
-                  Navigator.of(context).pushReplacement(PageTransition(
-                      child: LoginScreen(), type: PageTransitionType.fade));
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text(
+                        'Logout',
+                        style: TextStyle(
+                            fontFamily: 'Lato',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      content: const Text(
+                        'Are You Sure you want to Log out of the app?',
+                        style: TextStyle(fontFamily: 'Lato'),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            AuthService().logoutUser();
+                            Navigator.of(context).pushReplacement(
+                                PageTransition(
+                                    child: LoginScreen(),
+                                    type: PageTransitionType.fade));
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
                 },
                 child: Row(
                   children: [
